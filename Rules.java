@@ -2,7 +2,7 @@ package com.org.app.assignment;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -13,7 +13,8 @@ public class Rules {
 	private static Map<Character,Integer> RepeatableLiteralsCount = getRepeatableLiteralsCount();
 
 	private static Map<Character,Integer> getRepeatableLiteralsCount(){
-		Map<Character,Integer>map = new HashMap<Character,Integer>() {
+		@SuppressWarnings("serial")
+		Map<Character,Integer>map = new LinkedHashMap<Character,Integer>() {
 			{
 				put('I', 0);
 				put('X', 0);
@@ -27,7 +28,8 @@ public class Rules {
 	private static Map<Character,Integer> NonRepeatableLiteralsCount = getNonRepeatableLiteralsCount();
 
 	private static Map<Character,Integer> getNonRepeatableLiteralsCount(){
-		Map<Character,Integer>map = new HashMap<Character,Integer>() {
+		@SuppressWarnings("serial")
+		Map<Character,Integer>map = new LinkedHashMap<Character,Integer>() {
 			{
 				put('V', 0);
 				put('L', 0);
@@ -37,8 +39,9 @@ public class Rules {
 		return map;
 	}
 
+	@SuppressWarnings("serial")
 	private static Map<Integer, Integer[]> ROMAN_SUBTRACTABLE_MAPPING = Collections.unmodifiableMap(
-			new HashMap<Integer, Integer[]>() {
+			new LinkedHashMap<Integer, Integer[]>() {
 				{
 					put(1, new Integer[] {5, 10});
 					put(5, new Integer[] {});
@@ -50,8 +53,9 @@ public class Rules {
 				}
 			});
 
+	@SuppressWarnings("serial")
 	private static Map<Character, Integer> ROMAN_TO_NUMERIC_MAPPING = Collections.unmodifiableMap(
-			new HashMap<Character, Integer>() {
+			new LinkedHashMap<Character, Integer>() {
 				{
 					put('I', 1);
 					put('V', 5);
@@ -65,6 +69,7 @@ public class Rules {
 
 	/**
 	 * checkLiteralCountValidity() method keeps the count of all repeatable and non repeatable Literals.
+	 * @param CurrentLiteral character
 	 * 
 	 */
 	public static void checkLiteralCountValidity(Character CurrentLiteral){
@@ -72,7 +77,7 @@ public class Rules {
 			NonRepeatableLiteralsCount.put(CurrentLiteral, NonRepeatableLiteralsCount.get(CurrentLiteral) + 1);
 			if(NonRepeatableLiteralsCount.containsValue(3)){
 				System.err.println("Error : Roman Numeral V,L,D cannot be repeated.");	
-				System.exit(0);
+				//System.exit(0);
 			}
 		}
 		else if(checkIfLiteralPresent(RepeatingRomanNumber, CurrentLiteral)){
@@ -80,7 +85,7 @@ public class Rules {
 			if(keyForValueContainingThree != '\0'){
 				if (CurrentLiteral.equals(keyForValueContainingThree)){
 					System.err.println("Error : Roman Numeral "+CurrentLiteral+" cannot repeat 4 times successively");
-					System.exit(0);
+					//System.exit(0);
 				}
 				else if(CurrentLiteralSmallerThanPrevious(CurrentLiteral, keyForValueContainingThree)) {
 					RepeatableLiteralsCount.put(CurrentLiteral, RepeatableLiteralsCount.get(CurrentLiteral) +1);
@@ -88,7 +93,7 @@ public class Rules {
 				}
 			}
 			else{
-				RepeatableLiteralsCount.put(CurrentLiteral, RepeatableLiteralsCount.get(CurrentLiteral) +1);
+				RepeatableLiteralsCount.put(CurrentLiteral, RepeatableLiteralsCount.get(CurrentLiteral)+1);
 			}
 		}
 	}
@@ -120,7 +125,7 @@ public class Rules {
 	private static boolean CurrentLiteralSmallerThanPrevious(char CurrentLiteral, char keyForValueContainingThree){
 		if (ROMAN_TO_NUMERIC_MAPPING.get(CurrentLiteral)> ROMAN_TO_NUMERIC_MAPPING.get(keyForValueContainingThree)){
 			System.err.println("Error : Should have been a lesser Roman Numeral next instead of "+CurrentLiteral);
-			System.exit(0);
+			//System.exit(0);
 			return false;
 		}
 		else{
@@ -135,7 +140,7 @@ public class Rules {
 	 * @param lastNumber
 	 * @return
 	 */
-	public static float subtractionLogic(Float lastDecimal, Float decimal, Float lastNumber){
+	public static int subtractionLogic(int lastDecimal, int decimal, int lastNumber){
 		if(Arrays.asList(ROMAN_SUBTRACTABLE_MAPPING.get(Math.round(decimal))).contains(Math.round(lastNumber))){
 			return lastDecimal - decimal;
 		}

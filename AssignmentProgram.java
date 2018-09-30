@@ -1,5 +1,8 @@
 package com.org.app.assignment;
 
+import com.org.app.assignment.InputProcess;
+import com.org.app.assignment.OutputProcess;
+
 public class AssignmentProgram{
 
 	/**
@@ -12,7 +15,9 @@ public class AssignmentProgram{
 		if (args.length != 0)
 			filePath = args[0];
 		try{
-			
+			InputProcess.ProcessFile(filePath);
+			InputProcess.MapTokentoIntegerValue();
+			OutputProcess.processReplyForQuestion();
 		}
 		catch(Exception e){
 			System.out.println("Something went wrong....File Not Found ");

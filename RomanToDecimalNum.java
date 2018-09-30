@@ -1,19 +1,16 @@
 package com.org.app.assignment;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class RomanToDecimalNum extends Rules{
 
 	/**
 	 * Method to convert romannumeric to it's equivalent decimal
 	 * @param romanNumber
-	 * @return
+	 * @return integer value
 	 */
-	public float romanToDecimal(java.lang.String romanNumber) {
+	public int romanToDecimal(java.lang.String romanNumber) {
 
-		float decimal = 0;
-		float lastNumber = 0;
+		int decimal = 0;
+		int lastNumber = 0;
 		char[] romanNumeral = romanNumber.toUpperCase().toCharArray();
 
 		//Operation to be performed on upper cases even if user enters Roman values in lower case chars
@@ -73,9 +70,9 @@ public class RomanToDecimalNum extends Rules{
 	 * @param decimal
 	 * @param lastNumber
 	 * @param lastDecimal
-	 * @return
+	 * @return integer
 	 */
-	public float processDecimal(float decimal, float lastNumber, float lastDecimal) {
+	public int processDecimal(int decimal, int lastNumber, int lastDecimal) {
 		if (lastNumber > decimal) {
 			return super.subtractionLogic(lastDecimal, decimal, lastNumber);
 		}

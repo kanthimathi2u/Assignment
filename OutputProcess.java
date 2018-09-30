@@ -2,7 +2,6 @@ package com.org.app.assignment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +9,7 @@ import java.util.regex.Pattern;
 public class OutputProcess extends InputProcess{
 
 	/**
-	 * processReplyForQuestion() itertates over the questionAndReply map that contain all the valid queries as keys.
+	 * processReplyForQuestion() iterates over the questionAndReply map that contain all the valid queries as keys.
 	 * It further invokes processReply() on each key for processing the response.
 	 */
 	public static void processReplyForQuestion(){
@@ -41,12 +40,12 @@ public class OutputProcess extends InputProcess{
 			for (int i = 0; i < tokenValue.size(); i++) {
 				tokenValueToRoman.add(tokenRomanValueMapping.get(tokenValue.get(i)));
 			}
-			float value = new RomanToDecimalNum().romanToDecimal(tokenValueToRoman.toString());
-			tokenValue.add("is");tokenValue.add(Float.toString(value));
-			System.out.println(query+" "+outputFormatter(tokenValue));
+			int value = new RomanToDecimalNum().romanToDecimal(tokenValueToRoman.toString());
+			tokenValue.add("is");tokenValue.add(Integer.toString(value));
+			System.out.println(outputFormatter(tokenValue));
 		}
 		else{
-			System.err.println(query+" : I have no idea what you are talking about");
+			System.err.println("I have no idea what you are talking about while finding the value of Roman");
 		}
 	}
 
@@ -68,22 +67,22 @@ public class OutputProcess extends InputProcess{
 					element = tokenValue.get(i);
 				}
 				else{
-					System.err.println(query+" : I have no idea what you are talking about");
+					System.err.println("I have no idea what you are talking about while finding the value of Element");
 				}
 			}
-			float elementValue = (new RomanToDecimalNum().romanToDecimal(tokenValueToRoman.toString()) * elementValueList.get(element));
-			tokenValue.add("is");tokenValue.add(Float.toString(elementValue));tokenValue.add("Credits");
-			System.out.println(query+" "+outputFormatter(tokenValue));
+			int elementValue = (new RomanToDecimalNum().romanToDecimal(tokenValueToRoman.toString()) * elementValueList.get(element));
+			tokenValue.add("is");tokenValue.add(Integer.toString(elementValue));tokenValue.add("Credits");
+			System.out.println(outputFormatter(tokenValue));
 		}
 		else{
-			System.err.println(query+" : I have no idea what you are talking about");
+			System.err.println("I have no idea what you are talking about");
 		}
 	}
 
 	/**
 	 * Formats the response to a query and displays it in readable format
 	 * @param output
-	 * @return
+	 * @return the formatted output String
 	 */
 	private static String outputFormatter(ArrayList<String> output){
 		return output.toString().replace(",", "").replace("[", "").replace("]", "");
@@ -92,7 +91,7 @@ public class OutputProcess extends InputProcess{
 	/**
 	 * Applies regex on each input in the file to figure out the valid ones.
 	 * @param query
-	 * @return
+	 * @return boolean value based on the input validity
 	 */
 	private static boolean isValidinput(String query){
 		Pattern regex = Pattern.compile("[$&+,:;=@#|]");
